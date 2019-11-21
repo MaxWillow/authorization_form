@@ -1,6 +1,13 @@
 import './styles.css';
 import datepicker from 'js-datepicker';
 import 'js-datepicker/dist/datepicker.min.css';
+import PNotify from 'pnotify/dist/es/PNotify.js';
+import PNotifyButtons from 'pnotify/dist/es/PNotifyButtons.js';
+import PNotifyStyleMaterial from 'pnotify/dist/es/PNotifyStyleMaterial.js';
+
+PNotify.defaults.styling = 'material';
+PNotify.defaults.icons = 'material';
+PNotify.defaults.delay = 3500;
 
 const calendarInput = document.querySelector('.input-calendar');
 const timeInput = document.querySelector('.input-time');
@@ -13,9 +20,44 @@ const validation = {
   people: document.querySelector('.people-is-hidden'),
 };
 
+calendarInput.addEventListener('focus', handleFocusCalendar);
+calendarInput.addEventListener('blur', handleBlurCalendar);
+timeInput.addEventListener('focus', handleFocusTime);
+timeInput.addEventListener('blur', handleBlurTime);
+peopleInput.addEventListener('focus', handleFocusPeople);
+peopleInput.addEventListener('blur', handleBlurPeople);
+
+function handleFocusCalendar() {
+  validation.calendar.classList.add('calendar-is-hidden');
+}
+function handleBlurCalendar() {
+  if (!calendarInput.value) {
+    validation.calendar.classList.remove('calendar-is-hidden');
+  }
+}
+
+function handleFocusTime() {
+  validation.time.classList.add('time-is-hidden');
+}
+function handleBlurTime() {
+  if (!timeInput.value) {
+    validation.time.classList.remove('time-is-hidden');
+  }
+}
+
+function handleFocusPeople() {
+  validation.people.classList.add('people-is-hidden');
+}
+function handleBlurPeople() {
+  if (!peopleInput.value) {
+    validation.people.classList.remove('people-is-hidden');
+  }
+}
+
 const picker = datepicker(calendarInput, {
   onSelect: (instance, date) => {
     calendarInput.value = date.toLocaleDateString();
+    setTimeout(() => picker.hide(), 0);
   },
 });
 
@@ -27,12 +69,14 @@ function handleClick(e) {
   const timeValid = isValidTimeInput();
   const peopleValid = isValidPeopleInput();
   if (calendarValid && timeValid && peopleValid) {
-    alert(
+    PNotify.success(
       `The table for ${peopleInput.value} people has booked at ${timeInput.value} on ${calendarInput.value}! We are waiting! :)`,
     );
     calendarInput.value = '';
     timeInput.value = '';
     peopleInput.value = '';
+  } else {
+    PNotify.alert('Please, fill the full booking info!');
   }
 }
 

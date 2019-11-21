@@ -14,9 +14,7 @@ body {
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   padding: 0;
   margin: 0;
-  height: 100vh;
   display: flex;
-  align-items: center;
   background: #bc8f8f;
 }
 
@@ -99,19 +97,16 @@ input:focus {
   outline: none;
 }
 
-.input-btn {
-  position: absolute;
-  top: 0;
-  left: 90%;
-  padding: 0;
-  border: none;
-  background: #f7dac6;
-  pointer-events: none;
-  cursor: pointer;
+button:focus {
+  outline-color: #bc8f8f;
 }
 
 .material-icons {
   color: #5f4638;
+}
+
+.btn-wrapper {
+  position: relative;
 }
 
 .check-btn {
@@ -125,28 +120,24 @@ input:focus {
   font-size: 16px;
   line-height: 2;
   cursor: pointer;
-  z-index: 2;
-}
-
-.check-btn::before,
-.check-btn::after {
-  content: '';
-  display: block;
-  width: 330px;
-  height: 16px;
-  border: 1px solid #5f4638;
-  position: absolute;
   z-index: 1;
 }
 
-.check-btn::before {
-  top: 0;
-  left: -10px;
+.style-box {
+  min-width: 330px;
+  border: 1px solid #5f4638;
+  height: 17.4px;
+  position: absolute;
 }
 
-.check-btn::after {
-  bottom: 0;
+.style-box1 {
   left: -10px;
+  top: 0;
+}
+
+.style-box2 {
+  left: -10px;
+  bottom: 0;
 }
 
 .validation {
@@ -200,4 +191,74 @@ input:focus {
   font-size: 12px;
   color: #5f4638;
   text-transform: uppercase;
+}
+
+@media (min-width: 571px) and (max-width: 720px) {
+  .label {
+    min-width: 390px;
+  }
+
+  .label:last-of-type {
+    margin-bottom: 90px;
+  }
+
+  .check-btn {
+    min-width: 390px;
+  }
+
+  .style-box {
+    min-width: 410px;
+  }
+}
+
+@media (min-width: 380px) and (max-width: 570px) {
+  .form__heading {
+    font-size: 20px;
+  }
+
+  .form__text {
+    font-size: 16px;
+    padding: 0 15px;
+  }
+
+  .label:last-of-type {
+    margin-bottom: 90px;
+  }
+}
+
+@media (max-width: 379px) {
+  .form__heading {
+    font-size: 18px;
+    margin-bottom: 54px;
+  }
+
+  .form__text {
+    font-size: 16px;
+    padding: 0 15px;
+    margin-bottom: 60px;
+  }
+
+  .label {
+    min-width: 250px;
+  }
+
+  .label:last-of-type {
+    margin-bottom: 90px;
+  }
+
+  .check-btn {
+    min-width: 250px;
+  }
+
+  .style-box {
+    min-width: 270px;
+  }
+
+  .qs-datepicker-container {
+    width: 250px !important;
+  }
+
+  .ui-pnotify-container {
+    width: 270px !important;
+  }
 }
